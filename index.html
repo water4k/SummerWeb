@@ -3,30 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Schedule Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Daily Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #schedule {
+            margin-bottom: 20px;
+        }
+        #newTaskInput {
+            width: calc(100% - 120px);
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #addTaskBtn {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #addTaskBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Daily Schedule Tracker</h1>
-        <p id="currentDate"></p>
-
-        <h2>Daily Tasks</h2>
-        <ul id="taskList">
-            <!-- Daily tasks will be dynamically added here -->
-        </ul>
-
-        <h2>Add New Task</h2>
-        <input type="text" id="newTaskInput" placeholder="New Task">
+        <h1>Daily Schedule</h1>
+        <div id="schedule">
+            <!-- Schedule will be dynamically generated here -->
+        </div>
+        <input type="text" id="newTaskInput" placeholder="Add new task...">
         <button id="addTaskBtn">Add Task</button>
-
-        <h2>Long-Term Goals</h2>
-        <textarea id="longTermGoals" placeholder="Write your long-term goals here..."></textarea>
-
-        <button id="saveGoalsBtn">Save Goals</button>
     </div>
 
-    <script src="scripts.js"></script>
+    <script>
+        // Current date
+        const currentDate = new Date().toDateString();
+
+        // Schedule data
+        const schedule = {
+            "Monday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"],
+            "Tuesday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"],
+            "Wednesday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"],
+            "Thursday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"],
+            "Friday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"]
+        };
+
+        // Function to display schedule
+        function displaySchedule(day) {
+            const scheduleList = document.createElement("ul");
+            schedule[day].forEach(task => {
+                const taskItem = document.createElement("li");
+                taskItem.textContent = task;
+                scheduleList.appendChild(taskItem);
+            });
+            document.getElementById("schedule").innerHTML = `<h2>${day}'s Schedule</h2>`;
+            document.getElementById("schedule").appendChild(scheduleList);
+        }
+
+        // Display schedule for current day
+        displaySchedule(currentDate.split(' ')[0]);
+
+        // Add new task
+        document.getElementById("addTaskBtn").addEventListener("click", function() {
+            const newTaskInput = document.getElementById("newTaskInput");
+            const newTask = newTaskInput.value.trim();
+            if (newTask !== "") {
+                const currentDay = currentDate.split(' ')[0];
+                schedule[currentDay].push(newTask);
+                displaySchedule(currentDay);
+                newTaskInput.value = "";
+            } else {
+                alert("Please enter a task!");
+            }
+        });
+    </script>
 </body>
 </html>
+
 
