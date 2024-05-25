@@ -10,7 +10,7 @@
             font-family: 'Lato', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: lightorange;
+            background-color: coral;
             color: white;
             line-height: 2;
         }
@@ -47,7 +47,6 @@
         }
         #currentDate {
             font-size: 20px;
-            text-align: center;
         }
     </style>
 </head>
@@ -79,6 +78,43 @@
         // Function to display schedule
         function displaySchedule(day) {
             const schedule = {
-                "Monday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Warm-up: 3 minutes dynamic stretching", "Bench Press: 4 sets of 6-8 reps", "Dumbbell Rows: 3 sets of 8-12 reps", "Squats: 3 sets of 10-12 reps", "Pushups: 3 sets of as many as you can", "Pull-Ups: 3 sets of as many as you can", "Core workout (6 minutes)", "Run 1 mile", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"],
-                "Tuesday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Warm-up: 3 minutes dynamic stretching", "Dumbbell Curls: 3 sets of 6-8 reps", "Pushups: 3 sets of as many as you can", "Pull-Ups: 3 sets of as many as you can", "Squats: 3 sets of 10-12 reps", "2 minutes of sit-ups", "Sprinting: 6 x 100 meters", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM", "Free Time: 10:15 AM - 12:00 PM"],
-                "Wednesday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "Warm-up: 3 minutes dynamic stretching", "Bench Press: 4 sets of 6-8 reps", "Dumbbell Rows: 3 sets of 8-12 reps", "Pushups: 3 sets of as many as you can", "Pull-Ups: 3 sets of as many as you can", "Core workout (6 minutes)", "Run 1 mile", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 -
+                "Monday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "------Warm-up: 3 minutes dynamic stretching", "------Bench Press: 4 sets of 6-8 reps", "------Dumbbell Rows: 3 sets of 8-12 reps", "------Pushups: 3 sets of as many as you can", "------Pull-Ups: 3 sets of as many as you can", "------Core workout (6 minutes)", "------Run 1 mile", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM"],
+                "Tuesday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "------Warm-up: 3 minutes dynamic stretching", "------Bench Press: 4 sets of 6-8 reps", "------Dumbbell Curls: 3 sets of 6-8 reps", "------Pushups: 3 sets of as many as you can", "------Pull-Ups: 3 sets of as many as you can", "------Situps (2 minutes)", "------3 Hill Sprints and 6 x 100m Sprints", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM"],
+                "Wednesday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "------Warm-up: 3 minutes dynamic stretching", "------Bench Press: 4 sets of 6-8 reps", "------Dumbbell Rows: 3 sets of 8-12 reps", "------Pushups: 3 sets of as many as you can", "------Pull-Ups: 3 sets of as many as you can", "------Core workout (6 minutes)", "------Run 1 mile", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM"],
+                "Thursday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "------Warm-up: 3 minutes dynamic stretching", "------Bench Press: 4 sets of 6-8 reps", "------Dumbbell Curls: 3 sets of 6-8 reps", "------Pushups: 3 sets of as many as you can", "------Pull-Ups: 3 sets of as many as you can", "------Core workout (6 minutes)", "------3 Hill Sprints and 6 x 100m Sprints", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM"],
+                "Friday": ["Wake up: 7:00 AM", "Workout: 7:15 - 8:15 AM", "------Warm-up: 3 minutes dynamic stretching", "------Bench Press: 4 sets of 6-8 reps", "------Dumbbell Rows: 3 sets of 8-12 reps", "------Pushups: 3 sets of as many as you can", "------Pull-Ups: 3 sets of as many as you can", "------Core workout (6 minutes)", "------Run 1 mile", "Language Learning: 8:30 - 9:15 AM", "Other Subjects: 9:30 - 10:15 AM"],
+            };
+
+            const scheduleList = document.createElement("ul");
+            schedule[day].forEach(task => {
+                const taskItem = document.createElement("li");
+                taskItem.textContent = task;
+                scheduleList.appendChild(taskItem);
+            });
+            const scheduleDiv = document.getElementById("schedule");
+            scheduleDiv.innerHTML = `<h2>${day}'s Schedule</h2>`;
+            scheduleDiv.appendChild(scheduleList);
+        }
+
+        // Initial display
+        displayCurrentDate();
+        const currentDay = getCurrentDate().split(", ")[0];
+        displaySchedule(currentDay);
+
+        // Add new task
+        document.getElementById("addTaskBtn").addEventListener("click", function() {
+            const newTaskInput = document.getElementById("newTaskInput");
+            const newTask = newTaskInput.value.trim();
+            if (newTask !== "") {
+                const scheduleList = document.querySelector("#schedule ul");
+                const taskItem = document.createElement("li");
+                taskItem.textContent = newTask;
+                scheduleList.appendChild(taskItem);
+                newTaskInput.value = "";
+            } else {
+                alert("Please enter a task!");
+            }
+        });
+    </script>
+</body>
+</html>
